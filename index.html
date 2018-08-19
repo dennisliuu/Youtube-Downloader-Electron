@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="static/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+    <title>Youtube Sound Downloader</title>
+  </head>
+  <style type="text/css">
+    html * {
+       color: rgb(56, 70, 77);
+       font-family: 'Didact Gothic', sans-serif;
+       font-size: 14px;
+    }
+
+    body {
+        background-image:    url(https://imgur.com/46aDadG.jpg);
+        background-size:     cover;
+        background-repeat:   no-repeat;
+    }
+
+    h1 {
+      font-size: 28px;
+    }
+
+    li {
+      font-size: 12px;
+    }
+
+    #URLs {
+      padding-left: 10px;
+      width: 270px;
+      height: 24px;
+      -webkit-border-radius: 8px 0 0 8px;
+      -moz-border-radius: 8px 0 0 8px;
+      border-radius: 8px 0 0 8px;
+      border: 1px solid rgb(56, 70, 77);
+    }
+
+    #btnWrite {
+      margin-left: -10px;
+      height: 28px;
+      -webkit-border-radius: 0 8px 8px 0;
+      -moz-border-radius: 0 8px 8px 0;
+      border-radius: 0 8px 8px 0;
+      border: 1px solid rgb(56, 70, 77);
+      background: rgb(56, 70, 77);
+      color: rgb(139, 147, 151);
+    }
+
+    #btnDownload {
+      background: transparent;
+      border: 0px;
+      margin-left: 14px;
+      font-family: 'Permanent Marker', cursive;
+      font-size: 18px;
+      transform: rotate(-7deg);
+    }
+
+    #btnOpenfolder {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      height: 30px;
+      border: 1px solid rgb(56, 70, 77);
+      background: rgb(56, 70, 77);
+      color: rgb(255, 255, 255);
+    }
+
+  </style>
+  <body>
+    <h1>Youtube Sound Downloader</h1>
+    <p>Hello, wellcome to Youtube Sound Downloader.</p>
+    <input type="text" placeholder="http://www.youtube.com/XXX" id="URLs">
+    <button id="btnWrite">Add URL</button>
+    <button id="btnDownload">DOWNLOAD</button>
+    <button id="btnOpenfolder">Open Songs Folder</button>
+    <div style="margin-left: 15px;">
+    <img src="https://imgur.com/VpI4uW3.jpg" style="float:left; padding-top: 7px; height: 24px"><P style="padding-top: 10px">Your download list</P>      
+    </div>
+
+    <ul id="lists"></ul>      
+    <script>
+      // You can also require other files to run in this process
+      require('./renderer.js')
+    </script>
+  </body>
+</html>

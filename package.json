@@ -1,0 +1,39 @@
+{
+  "name": "Youtube-Sound-Download-App",
+  "version": "1.0.0",
+  "description": "A Youtube Download App",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "dennisliuu@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^2.0.0",
+    "electron-builder": "^20.28.1"
+  },
+  "build": {
+    "appId": "com.dennisliuu.app",
+    "productName": "Youtube-Sound-Download-App",
+    "target": "NSIS",
+    "directories": {
+      "output": "build"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false
+    }
+  },
+  "dependencies": {
+    "ytdl-core": "^0.24.0"
+  }
+}
