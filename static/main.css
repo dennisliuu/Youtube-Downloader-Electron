@@ -1,0 +1,60 @@
+html *
+{
+   color: rgb(56, 70, 77);
+   font-family: 'Didact Gothic', sans-serif;
+   font-size: 14px;
+}
+
+body {
+    background-image:    url(bg.jpg);
+    background-size:     cover;
+    background-repeat:   no-repeat;
+}
+
+h1 {
+	font-size: 28px;
+}
+
+li {
+	font-size: 12px;
+}
+
+#URLs {
+	padding-left: 10px;
+	width: 270px;
+	height: 24px;
+	-webkit-border-radius: 8px 0 0 8px;
+	-moz-border-radius: 8px 0 0 8px;
+	border-radius: 8px 0 0 8px;
+	border: 1px solid rgb(56, 70, 77);
+}
+
+#btnWrite {
+	margin-left: -10px;
+	height: 28px;
+	-webkit-border-radius: 0 8px 8px 0;
+	-moz-border-radius: 0 8px 8px 0;
+	border-radius: 0 8px 8px 0;
+	border: 1px solid rgb(56, 70, 77);
+	background: rgb(56, 70, 77);
+	color: rgb(139, 147, 151);
+}
+
+#btnDownload {
+	background: transparent;
+	border: 0px;
+	margin-left: 14px;
+	font-family: 'Permanent Marker', cursive;
+	font-size: 18px;
+	transform: rotate(-7deg);
+}
+
+#btnOpenfolder {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	height: 30px;
+	border: 1px solid rgb(56, 70, 77);
+	background: rgb(56, 70, 77);
+	color: rgb(255, 255, 255);
+}
