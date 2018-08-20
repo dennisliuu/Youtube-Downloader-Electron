@@ -30,7 +30,8 @@ document.querySelector('#btnDownload').disabled = true
 document
 .querySelector('#btnWrite')
 .addEventListener('click', () => {
-	let newURL = document.getElementById('URLs').value 
+	let newURL = document.getElementById('URLs').value
+	newURL = newURL.split("&")[0]
 	listURL.push(newURL)
 	document.querySelector('#btnDownload').disabled = true
 	tempArr = newURL.split("=");
