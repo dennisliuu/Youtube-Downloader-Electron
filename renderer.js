@@ -39,6 +39,7 @@ document
 		listName.push(info.title)
 		var list = document.getElementById("lists")
 		var listItem = document.createElement("LI")
+		listItem.classList.add("list-group-item")
 		listItem.textContent = info.title
 		list.appendChild(listItem)
 		document.querySelector('#btnDownload').disabled = false
