@@ -54,6 +54,13 @@ document
 	for (var i = 0; i < listURL.length; i++) {
 		let video = ytdl(listURL[i])
 		video.pipe(fs.createWriteStream(listName[i] + '.mp3'))
+		video.on('progress', (chunkLength, downloaded, total) => {
+		  const floatDownloaded = ((downloaded / total) * 100).toFixed(2);
+		  document.querySelector('#progress-bar').style.width = floatDownloaded+'%'
+		  document.querySelector('#progress-bar').setAttribute('aria-valuenow', floatDownloaded);
+		  document.querySelector('#progress-bar').innerHTML = floatDownloaded
+		  // console.log(floatDownloaded);
+		});
 		video.on('end', () => {
 			movefile()
 			count += 1
