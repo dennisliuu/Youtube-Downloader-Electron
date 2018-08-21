@@ -8,7 +8,7 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 520, height: 500,icon: './icon.ico'});
+  mainWindow = new BrowserWindow({width: 600, height: 500,icon: './icon.ico'});
   mainWindow.setMenu(null)
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
