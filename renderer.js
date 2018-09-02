@@ -16,8 +16,8 @@ const ffmpeg = require('fluent-ffmpeg');
 ffmpeg.setFfmpegPath(ffmpegPath);
 
 window.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-    Menu.getApplicationMenu().popup(remote.getCurrentWindow());
+	e.preventDefault();
+	Menu.getApplicationMenu().popup(remote.getCurrentWindow());
 }, false);
 
 listURL = []
@@ -65,24 +65,23 @@ document
 		tempArr = listURL[i].split("=")
 		let id = tempArr[1]
 		let stream = ytdl(id, {
-		  quality: 'highestaudio',
+			quality: 'highestaudio',
 		});
 
-		let start = Date.now();
 		ffmpeg(stream)
-		  .audioBitrate(128)
-		  .save(`${__dirname}/${listName[i]}.mp3`)
-		  .on('progress', (p) => {
-		  	console.log(p.targetSize)
-		  })
-		  .on('end', () => {
-		    movefile()
-		    count += 1
-		    if (count == listURL.length) { 
+		.audioBitrate(128)
+		.save(`${__dirname}/${listName[i]}.mp3`)
+		.on('progress', function(progress) {
+			document.querySelector('#dwsize').innerHTML = 'Processing: ' + progress.targetSize + 'kbs done'
+		})
+		.on('end', () => {
+			movefile()
+			count += 1
+			if (count == listURL.length) { 
 				var command = 'start ' + os.homedir() + '\\Music\\YTSongs'
 				exec(command)
 			}
-		  });
+		});
 	}
 });
 
@@ -96,10 +95,10 @@ document
 		video.pipe(fs.createWriteStream(listName[i] + '.mp4'))
 
 		video.on('progress', (chunkLength, downloaded, total) => {
-		  const floatDownloaded = ((downloaded / total) * 100).toFixed(2);
-		  document.querySelector('#progress-bar').style.width = floatDownloaded*3 + '%'
-		  document.querySelector('#progress-bar').setAttribute('aria-valuenow', floatDownloaded);
-		  document.querySelector('#progress-bar').innerHTML = floatDownloaded
+			const floatDownloaded = ((downloaded / total) * 100).toFixed(2);
+			document.querySelector('#progress-bar').style.width = floatDownloaded*3 + '%'
+			document.querySelector('#progress-bar').setAttribute('aria-valuenow', floatDownloaded);
+			document.querySelector('#progress-bar').innerHTML = floatDownloaded
 		  // console.log(floatDownloaded);
 		});
 		video.on('end', () => {
@@ -116,7 +115,7 @@ document
 function movefile() {
 	var dir = os.homedir() + '\\Music\\YTSongs'
 	if (!fs.existsSync(dir)){
-	    fs.mkdirSync(dir);
+		fs.mkdirSync(dir);
 	}
 	var command = 'for /r . %f in (*.mp3,*.mp4) do @move "%f" ' + os.homedir() + '\\Music\\YTSongs\\'
 	exec(command, (err) => {
