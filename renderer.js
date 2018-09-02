@@ -8,7 +8,12 @@ const { remote } = window.require('electron')
 const fs  = require("fs")
 const ytdl = require('ytdl-core')
 const os = require('os')
-const {Menu} = remote;
+const {Menu} = remote
+
+const readline = require('readline')
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+const ffmpeg = require('fluent-ffmpeg');
+ffmpeg.setFfmpegPath(ffmpegPath);
 
 window.addEventListener('contextmenu', (e) => {
     e.preventDefault();
@@ -39,7 +44,7 @@ document
 	tempArr = newURL.split("=");
 	ytdl.getInfo(tempArr[1], (err, info) => {
 		if (err) throw err;
-		listName.push(info.title)
+		listName.push(info.title.replace(/[.*+?^${}()|[\]\\]/g, ""))
 		var list = document.getElementById("lists")
 		var listItem = document.createElement("LI")
 		listItem.classList.add("list-group-item")
@@ -57,27 +62,27 @@ document
 .addEventListener('click', () => {
 	document.querySelector('#btnWrite').disabled = true
 	for (var i = 0; i < listURL.length; i++) {
-		let video = ytdl(listURL[i])
-		video.pipe(fs.createWriteStream(listName[i] + '.mp3'))
-		video.on('progress', (chunkLength, downloaded, total) => {
-		  const floatDownloaded = ((downloaded / total) * 100).toFixed(2);
-		  document.querySelector('#progress-bar').style.width = floatDownloaded*3 + '%'
-		  document.querySelector('#progress-bar').setAttribute('aria-valuenow', floatDownloaded);
-		  document.querySelector('#progress-bar').innerHTML = floatDownloaded
-		  // console.log(floatDownloaded);
+		tempArr = listURL[i].split("=")
+		let id = tempArr[1]
+		let stream = ytdl(id, {
+		  quality: 'highestaudio',
 		});
-		video.on('end', () => {
-			movefile()
-			count += 1
-			if (count == listURL.length) { 
+
+		let start = Date.now();
+		ffmpeg(stream)
+		  .audioBitrate(128)
+		  .save(`${__dirname}/${listName[i]}.mp3`)
+		  .on('progress', (p) => {
+		  	console.log(p.targetSize)
+		  })
+		  .on('end', () => {
+		    movefile()
+		    count += 1
+		    if (count == listURL.length) { 
 				var command = 'start ' + os.homedir() + '\\Music\\YTSongs'
 				exec(command)
-				setTimeout(function() {
-				    ipcRenderer.send('close')
-				}, 3000);
-				
 			}
-		});
+		  });
 	}
 });
 
@@ -103,9 +108,6 @@ document
 			if (count == listURL.length) { 
 				var command = 'start ' + os.homedir() + '\\Music\\YTSongs'
 				exec(command)
-				setTimeout(function() {
-				    ipcRenderer.send('close')
-				}, 3000);	
 			}
 		});
 	}
@@ -116,7 +118,6 @@ function movefile() {
 	if (!fs.existsSync(dir)){
 	    fs.mkdirSync(dir);
 	}
-	// for /r C:\ %f in (*.jpg) do @copy "%f" D:\pictures\
 	var command = 'for /r . %f in (*.mp3,*.mp4) do @move "%f" ' + os.homedir() + '\\Music\\YTSongs\\'
 	exec(command, (err) => {
 		if (err) { throw err }
